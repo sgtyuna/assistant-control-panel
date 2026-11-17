@@ -37,7 +37,7 @@ check('every item points at an assistant that exists',
   [...raw.requests, ...raw.actions, ...raw.subscriptions].every((x) => aIds.has(x.assistantId)));
 check('every category named on an item exists',
   [...raw.requests, ...raw.actions].every((x) => x.category == null || cIds.has(x.category)));
-check('9 assistants, 1 paused', raw.assistants.length === 9 && raw.assistants.filter((a) => a.paused).length === 1);
+check('10 assistants, 1 paused', raw.assistants.length === 10 && raw.assistants.filter((a) => a.paused).length === 1);
 check('5 requests waiting, $183.39 in all',
   raw.requests.length === 5 && near(raw.requests.reduce((s, r) => s + Number(r.amount || 0), 0), 183.39));
 
@@ -88,7 +88,7 @@ await store.init();
 check('first open: no home screen picked, Demo mode off', store.my.settings.homeScreen === null && store.demo === false);
 store.setHomeScreen('activity');
 await store.setDemo(true);
-check('Demo mode shows sample data', store.data.assistants.length === 9);
+check('Demo mode shows sample data', store.data.assistants.length === 10);
 check('sample data never enters my information',
   store.my.assistants.length === 0 && !mem.get('acp.myInfo').includes('Fernhill'));
 await store.setDemo(false);

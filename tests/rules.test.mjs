@@ -199,7 +199,7 @@ test('sample data: every screen has something to show', () => {
   const data = migrate(resolveDemo(raw, NOW));
   const ids = new Set(data.assistants.map((a) => a.id));
   for (const list of [data.requests, data.actions, data.subscriptions]) for (const x of list) assert.ok(ids.has(x.assistantId), x.id);
-  assert.equal(data.assistants.length, 9);
+  assert.equal(data.assistants.length, 10);
   assert.ok(data.requests.length >= 3);
   assert.ok(data.assistants.some((a) => spending(data, a, NOW).some((r) => r.limit && r.ratio >= 0.8 && r.ratio < 1)), 'one near its limit');
   const spend = categorySpend(data, NOW);

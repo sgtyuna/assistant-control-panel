@@ -228,7 +228,7 @@ for (const [label, size] of [['phone', { width: 390, height: 844 }], ['computer'
   await page.click('#view [data-act="toggle-demo"]');
   await page.waitForSelector('#demo-strip:not([hidden])');
   await go('assistants');
-  check('Demo mode shows the 9 sample assistants', await page.locator('.assistant').count() === 9);
+  check('Demo mode shows the 10 sample assistants', await page.locator('.assistant').count() === 10);
   check('my information never shows up in Demo mode', !(await viewText()).includes('Robin'));
   await go('ok');
   check('Demo: 5 requests waiting', await page.locator('.request').count() === 5);
