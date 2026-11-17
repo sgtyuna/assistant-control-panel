@@ -4,7 +4,8 @@
 
 Version 1 (the clickable mock-up) is built. Try it, then say what to change.
 
-- [ ] Open it on your Mac: in Terminal, go to this folder and run `python3 -m http.server 8791`, then open http://localhost:8791
+- [ ] Open it on your computer or phone: https://sgtyuna.github.io/assistant-control-panel/
+- [ ] On your phone, add it to the home screen: in Safari tap Share, then **Add to Home Screen**
 - [ ] Tap **Turn on Demo mode** (or Settings → Demo mode) and try everything on the sample data: OK and No, Pause Everything, a pause switch, Undo, an assistant's limits and rules
 - [ ] Turn Demo mode off and add an assistant of your own. Use **Add by hand** to add something it did, since nothing is connected yet
 - [ ] In Settings, tap **Save a copy to a file** once you have entered anything you want to keep
@@ -12,7 +13,6 @@ Version 1 (the clickable mock-up) is built. Try it, then say what to change.
 
 ## Questions for Katie
 
-- [ ] **Phone link.** GitHub Pages from a private repo needs a paid GitHub plan. Choose one: make the GitHub copy public (safe: the code ships empty and the sample data is made up), or pay for GitHub Pro, or host the link somewhere else. Until then it opens on your phone only while your Mac is running it on the same Wi-Fi.
 - [ ] **Name.** "Assistant Control Panel" is a placeholder. Keep it or pick another?
 - [ ] **What "trusted" does.** Because approve-first beats trusted, a trusted store still has to ask when a limit or an "over $25" rule applies. So trusted only means "never treated as someone new". Is that what you want?
 - [ ] **What can be undone.** A by-hand action can be undone only if you pick a time (1, 7 or 30 days) when adding it. Emails cannot be undone. OK?
@@ -46,4 +46,6 @@ Version 1 (the clickable mock-up) is built. Try it, then say what to change.
 - A browser can clear local storage. The saved file is the real backup. It is one JSON file with a version number (now 2); newer versions of the app open older files, and an older app says plainly when a file is too new.
 - Checks: `node --test tests/rules.test.mjs` (the behaviour rules), `node scripts/check.mjs` (sample data, sums, times, storage warnings) and `node tests/browser.test.mjs` (the real app in a browser at phone and computer size; needs Playwright once, see the top of that file). The first two run by themselves on every pull request.
 - Starting picks are settled (Nov 16): rules go blocked, then paused, then approve-first, then trusted; weeks run Sunday through Saturday.
-- The Forge repo is the main copy. GitHub (sgtyuna/assistant-control-panel) is the mirror.
+- The Forge repo is the main copy. GitHub (sgtyuna/assistant-control-panel) is the public mirror, and the link above is served from its main branch, so the link updates about a minute after each mirror.
+- Your information stays in the browser you use. The phone and the computer each keep their own; use Save a copy and Load a saved copy to move it between them.
+- To run it without the internet: in Terminal, go to this folder, run `python3 -m http.server 8791`, then open http://localhost:8791

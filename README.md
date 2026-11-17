@@ -23,6 +23,10 @@ Three things are kept apart and never mixed:
 
 It is plain web files with no build step, so it can be wrapped as an iPhone app later, or the screens can be moved to a framework such as React while `store.js`, `logic.js` and the saved-file format stay the same.
 
+## Open it
+
+Live link: https://sgtyuna.github.io/assistant-control-panel/
+
 ## Open it on this computer
 
 In Terminal, from this folder:
