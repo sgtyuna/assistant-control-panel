@@ -67,7 +67,7 @@ export const store = {
   saveMy() {
     if (!this.storageOk || this.tooNew) return;
     try { localStorage.setItem(MY_KEY, JSON.stringify(this.my)); }
-    catch (e) { this.storageOk = false; }
+    catch (e) { this.storageOk = false; this.emit(); } // emit so the warning shows right away
   },
 
   async loadDemo() {
@@ -83,7 +83,7 @@ export const store = {
   async setDemo(on) {
     this.demo = !!on;
     if (this.demo) await this.loadDemo(); else this.demoData = null;
-    try { localStorage.setItem(SHELL_KEY, JSON.stringify({ demo: this.demo })); } catch (e) { /* shown via storageOk */ }
+    try { localStorage.setItem(SHELL_KEY, JSON.stringify({ demo: this.demo })); } catch (e) { this.storageOk = false; } // the emit below shows the warning
     this.emit();
     return this.demo === !!on;
   },
@@ -112,8 +112,20 @@ function resolveWhen(when, within, now) {
   const floor = within === 'week' ? startOfWeek(now) : within === 'month' ? startOfMonth(now) : null;
   if (floor && d < floor) d = new Date(floor);
   d.setHours(h, m, 0, 0);
-  if (d > now) d = new Date(now.getTime() - 20 * 60000);
-  return d.toISOString();
+  return d;
+}
+
+// Early in the day some sample items are timed later than "now". Those are
+// squeezed into the gap between the last item that has already happened today
+// and now, keeping their order and spacing. Items already in the past keep
+// their written times. Changes the dates in place.
+export function fitBeforeNow(dates, now) {
+  const late = dates.filter((d) => d > now);
+  if (!late.length) return;
+  const lo = Math.max(startOfDay(now).getTime(), ...dates.filter((d) => d <= now && d >= startOfDay(now)).map((d) => d.getTime()));
+  const max = Math.max(...late.map((d) => d.getTime()));
+  const scale = (now.getTime() - lo) / (max - lo + 60000);
+  late.forEach((d) => d.setTime(lo + (d.getTime() - lo) * scale));
 }
 
 export function resolveDemo(raw, now) {
@@ -125,10 +137,13 @@ export function resolveDemo(raw, now) {
     access: (a.access || []).map(({ expiresInDays, ...rest }) =>
       expiresInDays == null ? rest : { ...rest, expiresAt: inDays(expiresInDays) }),
   }));
-  data.requests = raw.requests.map(({ when, ...r }) => ({ ...r, at: resolveWhen(when, null, now) }));
-  data.actions = raw.actions.map(({ when, within, undoInHours, ...a }) => ({
+  const reqAt = raw.requests.map((r) => resolveWhen(r.when, null, now));
+  const actAt = raw.actions.map((a) => resolveWhen(a.when, a.within, now));
+  fitBeforeNow([...reqAt, ...actAt], now);
+  data.requests = raw.requests.map(({ when, ...r }, i) => ({ ...r, at: reqAt[i].toISOString() }));
+  data.actions = raw.actions.map(({ when, within, undoInHours, ...a }, i) => ({
     status: 'done', ...a,
-    at: resolveWhen(when, within, now),
+    at: actAt[i].toISOString(),
     ...(undoInHours ? { undoUntil: new Date(now.getTime() + undoInHours * 3600000).toISOString() } : {}),
   }));
   data.subscriptions = raw.subscriptions.map(({ nextInDays, ...s }) => ({ ...s, nextAt: inDays(nextInDays) }));

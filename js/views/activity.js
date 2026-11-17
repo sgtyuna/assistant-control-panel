@@ -46,6 +46,7 @@ export function renderActivity(data, ctx) {
             <div class="line"><b>${esc(names[a.assistantId] || 'Removed assistant')}</b> <span class="muted small">${esc(when(a.at))}</span></div>
             <div class="text">${esc(a.text)}</div>
             ${a.flag ? `<div class="mark mark-flag">${icon('flag')} Unusual: ${esc(a.flag)}</div>` : ''}
+            ${a.status === 'done' && a.undoUntil && new Date(a.undoUntil) > new Date() ? `<div class="mark mark-undo">${icon('undo')} Can still be undone until ${esc(when(a.undoUntil))}</div>` : ''}
             ${a.status === 'undone' ? `<div class="mark">${icon('undo')} Undone. The money is back out of the totals.</div>` : ''}
             ${a.status === 'declined' ? `<div class="mark">${icon('x')} You said No. Nothing was spent.</div>` : ''}
           </div>

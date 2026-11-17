@@ -18,6 +18,7 @@ export function when(iso, now = new Date()) {
   const t = timeFmt.format(d);
   if (days === 0) return `Today ${t}`;
   if (days === 1) return `Yesterday ${t}`;
+  if (days === -1) return `Tomorrow ${t}`;
   if (days > 1 && days < 7) return `${dayFmt.format(d)} ${t}`;
   return `${dateFmt.format(d)}, ${t}`;
 }

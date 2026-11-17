@@ -15,6 +15,7 @@ const TABS = [
 
 const $ = (id) => document.getElementById(id);
 let choosing = false; // true while the home screen chooser is open from More
+let chooserOpen = false; // was the chooser showing after the last render
 
 function currentTab() {
   const key = location.hash.replace('#', '');
@@ -26,8 +27,17 @@ function render() {
   const data = store.data;
 
   // First open: nothing else shows until a home screen is picked.
-  $('chooser').innerHTML = !home || choosing ? renderFirstOpen(home) : '';
+  const showChooser = !home || choosing;
+  $('chooser').innerHTML = showChooser ? renderFirstOpen(home) : '';
   $('shell').hidden = !home;
+  $('shell').inert = showChooser; // nothing behind the chooser can be tabbed to
+  if (showChooser && !chooserOpen) {
+    // Just opened: move the keyboard into it.
+    const first = $('chooser').querySelector('.choice.is-current') || $('chooser').querySelector('.choice');
+    if (first) first.focus();
+  }
+  const justClosed = chooserOpen && !showChooser;
+  chooserOpen = showChooser;
   if (!home) return;
 
   const tab = currentTab();
@@ -54,7 +64,27 @@ function render() {
       ${icon(t.key)}<span>${t.label}</span>
       ${t.key === 'ok' && waiting ? `<b class="count" aria-label="${waiting} waiting">${waiting}</b>` : ''}
     </a>`).join('');
+
+  if (justClosed) {
+    // Put the keyboard back where it was (the Change button), or on the screen.
+    const back = $('view').querySelector('[data-action="choose-home"]') || $('nav').querySelector('.is-active');
+    if (back) back.focus();
+  }
 }
+
+// While the chooser is up, Tab stays inside it and Escape closes it (when
+// there is already a home screen to go back to).
+document.addEventListener('keydown', (e) => {
+  if (!chooserOpen) return;
+  if (e.key === 'Escape' && choosing) { choosing = false; render(); return; }
+  if (e.key !== 'Tab') return;
+  const items = [...$('chooser').querySelectorAll('button')];
+  if (!items.length) return;
+  const first = items[0], last = items[items.length - 1];
+  if (!$('chooser').contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+  else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+});
 
 document.addEventListener('click', async (e) => {
   const homeBtn = e.target.closest('[data-home]');
