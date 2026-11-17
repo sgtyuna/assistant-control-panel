@@ -1,0 +1,14 @@
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sample data, sums, times and storage warnings
+        run: node scripts/check.mjs
+      - name: Browser test script has no syntax errors
+        run: node --check tests/browser.test.mjs
