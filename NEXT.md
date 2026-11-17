@@ -15,13 +15,12 @@ Stage A is built. Look it over, then say OK (or what to change) before Stage B s
 
 - [ ] **Phone link.** GitHub Pages from a private repo needs a paid GitHub plan. Choose one: make the GitHub copy public (safe: the code ships empty and the sample data is made up), or pay for GitHub Pro, or host the link somewhere else.
 - [ ] **Name.** "Assistant Control Panel" is a placeholder. Keep it or pick another?
-- [ ] **Starting picks.** Keep the rule order (blocked, then paused, then approve-first, then trusted) and the other starting picks, or change any before Stage B?
 
 ## What works in Stage A
 
 - First open asks which of the three home screens to use, with a small preview of each. No default.
 - The three home screens, showing Demo data: Needs your OK, Assistants, Activity.
-- Activity filters: by assistant, by kind, flagged only.
+- Activity filters: by assistant, by kind, flagged only. Actions that can still be undone show their deadline (the Undo button comes in Stage B).
 - Demo mode on and off, clearly marked. Sample data never enters your information.
 - The home screen choice and Demo mode on/off are remembered between visits.
 - Friendly empty states when Demo mode is off.
@@ -52,6 +51,9 @@ Tapping one shows a short note saying it starts working in the next stage.
 A real activity log, real limits and a real off switch, real phone alerts, the iPhone app, family mode.
 
 ## Notes
+
+- Checks: `node scripts/check.mjs` (data, sums, times, storage warnings) and `node tests/browser.test.mjs` (the real app in a browser at phone and computer size; needs Playwright once, see the top of that file). The first one runs by itself on every pull request.
+- Starting picks are settled (Nov 16): rules go blocked, then paused, then approve-first, then trusted; weeks run Sunday through Saturday.
 
 - Built with plain web files (no installs, no build step), with the option to move to React later.
 - Your information is kept in the browser's local storage. A browser can clear that storage, so the save-to-file feature in Stage B is the real backup.

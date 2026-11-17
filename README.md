@@ -31,3 +31,12 @@ python3 -m http.server 8791
 ```
 
 Then open http://localhost:8791 in a browser.
+
+## Run the checks
+
+```
+node scripts/check.mjs
+node tests/browser.test.mjs
+```
+
+The second one opens the real app in a test browser and needs Playwright once (see the top of that file).
