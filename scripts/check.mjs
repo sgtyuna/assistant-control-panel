@@ -14,7 +14,8 @@ globalThis.localStorage = {
   setItem: (k, v) => { if (failWrites) throw new Error('full'); mem.set(k, String(v)); },
   removeItem: (k) => mem.delete(k),
 };
-globalThis.fetch = async () => ({ json: async () => JSON.parse(JSON.stringify(raw)) });
+const ideas = JSON.parse(readFileSync(root + 'data/assistant-names.json', 'utf8'));
+globalThis.fetch = async (u) => ({ json: async () => JSON.parse(JSON.stringify(String(u).includes('assistant-names') ? ideas : raw)) });
 
 const { store, emptyInfo, migrate } = await import('../js/store.js');
 const { resolveDemo } = await import('../js/demo.js');
@@ -85,6 +86,7 @@ check('an empty record has no assistants, actions or requests',
 check('a record from a newer version is refused, not changed', migrate({ schemaVersion: 99 }) === null);
 
 await store.init();
+check('name suggestions load from their own file, and add nothing by themselves', store.nameIdeas.includes('Muse') && store.my.assistants.length === 0);
 check('first open: no home screen picked, Demo mode off', store.my.settings.homeScreen === null && store.demo === false);
 store.setHomeScreen('activity');
 await store.setDemo(true);

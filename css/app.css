@@ -418,3 +418,7 @@ input::placeholder { color: #66788d; }
   .view > .card { max-width: 860px; }
   .nav .count { position: static; margin-left: auto; }
 }
+
+.picks { display: flex; flex-wrap: wrap; gap: 6px; max-height: 180px; overflow-y: auto; }
+.pick { min-height: 40px; padding: 6px 12px; border-radius: 20px; border: 1.5px solid var(--line); background: var(--panel-2); font-weight: 600; font-size: 14px; }
+.pick[aria-pressed="true"] { border-color: var(--accent); background: var(--info-bg); color: #fff; }

@@ -103,6 +103,7 @@ export const store = {
   demo: false,          // is Demo mode on
   storageOk: true,      // false if this browser will not keep information
   tooNew: false,        // true if the stored record came from a newer shell
+  nameIdeas: [],        // one-tap name suggestions, from data/assistant-names.json
 
   get data() { return this.demo && this.demoData ? this.demoData : this.my; },
 
@@ -121,6 +122,11 @@ export const store = {
       this.storageOk = false;
     }
     if (this.demo) await this.loadDemo(false);
+    try {
+      const res = await fetch('data/assistant-names.json', { cache: 'no-cache' });
+      const names = (await res.json()).names;
+      if (Array.isArray(names)) this.nameIdeas = names.map(String);
+    } catch (e) { this.nameIdeas = []; }
   },
 
   write(key, value) {

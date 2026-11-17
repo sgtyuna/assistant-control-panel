@@ -24,7 +24,7 @@ Version 1 (the clickable mock-up) is built. Try it, then say what to change.
 
 - First open asks which of three home screens to use. No default. Change it in Settings.
 - **Needs your OK**: each request with its assistant, cost and why it asked. OK and No.
-- **Assistants**: a card each, with a pause switch, spending against its limit, and its last action.
+- **Assistants**: a card each, with a pause switch, spending against its limit, and its last action. To add one, tap **Add your own**, tap a name (or type any name), then **Add assistant**.
 - **Assistant detail**: limits, approve-first rules, trusted and blocked lists, what it can reach, access that expires, quiet hours, history, rename, remove.
 - **Activity**: everything, newest first, with filters. The Undo tab lists what can still be undone and by when.
 - **Money**: totals, budget by category (add, rename, remove), subscriptions with the next charge date.
@@ -46,6 +46,7 @@ Version 1 (the clickable mock-up) is built. Try it, then say what to change.
 - Built with plain web files (no installs, no build step). The rules live in `js/logic.js` and `js/ops.js` with no screen code, and storage lives only in `js/store.js`, so the screens can move to React later, or real connections can replace the storage, without redoing the rules.
 - A browser can clear local storage. The saved file is the real backup. It is one JSON file with a version number (now 2); newer versions of the app open older files, and an older app says plainly when a file is too new.
 - Checks: `node --test tests/rules.test.mjs` (the behaviour rules), `node scripts/check.mjs` (sample data, sums, times, storage warnings) and `node tests/browser.test.mjs` (the real app in a browser at phone and computer size; needs Playwright once, see the top of that file). The first two run by themselves on every pull request.
+- The names offered when adding an assistant live in `data/assistant-names.json`. To offer another name, add it to that list; nothing in the app's code changes.
 - Starting picks are settled (Nov 16): rules go blocked, then paused, then approve-first, then trusted; weeks run Sunday through Saturday.
 - The Forge repo is the main copy. GitHub (sgtyuna/assistant-control-panel) is the public mirror, and the link above is served from its main branch, so the link updates about a minute after each mirror.
 - Your information stays in the browser you use. The phone and the computer each keep their own; use Save a copy and Load a saved copy to move it between them.

@@ -302,6 +302,16 @@ for (const [label, size] of [['phone', { width: 390, height: 844 }], ['computer'
   await page.click('#confirm-ok');
   check('and nothing was changed', JSON.stringify(await my()) === before);
 
+  // ---- Adding an assistant is one tap and Add ----
+  await go('assistants');
+  await page.click('[data-act="open-add-assistant"]');
+  check('names already added are not offered again', await page.locator('.pick[data-value="Wren"]').count() === 0 && await page.locator('.pick').count() > 5);
+  await page.click('.pick[data-value="Mistral Le Chat"]');
+  check('tapping a suggested name fills it in', await page.inputValue('#new-assistant-name') === 'Mistral Le Chat');
+  await page.click('#sheet .btn-primary');
+  check('one tap and Add is enough to add an assistant', (await my()).assistants.some((a) => a.name === 'Mistral Le Chat'));
+  check('the add form has no sideways scroll', await noSideScroll());
+
   check('no errors in the browser', errors.length === 0, errors.join(' | '));
   await ctx.close();
 }

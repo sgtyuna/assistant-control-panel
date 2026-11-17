@@ -179,12 +179,18 @@ const acts = {
     change((d) => ops.setPausedAll(d, on));
     toast(on ? 'Everything is paused. No assistant can act until you resume.' : 'Resumed. Each assistant is back in the state it was in before.');
   },
-  'open-add-assistant'() { openSheet(addAssistantForm()); },
+  'open-add-assistant'() { openSheet(addAssistantForm(store.nameIdeas, store.data)); },
   'open-add'(id, el) {
-    if (!store.data.assistants.some((a) => !a.removed)) { openSheet(addAssistantForm()); return; }
+    if (!store.data.assistants.some((a) => !a.removed)) { openSheet(addAssistantForm(store.nameIdeas, store.data)); return; }
     openSheet(addActionForm(store.data, id, el.dataset.mode));
   },
   'close-sheet'() { closeSheet(); },
+  'pick-name'(id, el) {
+    const input = $('new-assistant-name');
+    input.value = el.dataset.value;
+    el.closest('.picks').querySelectorAll('.pick').forEach((b) => b.setAttribute('aria-pressed', String(b === el)));
+    input.focus();
+  },
   async 'remove-assistant'(id) {
     const a = assistant(id);
     if (!a) return;
