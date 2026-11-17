@@ -228,7 +228,7 @@ for (const [label, size] of [['phone', { width: 390, height: 844 }], ['computer'
   await page.click('#view [data-act="toggle-demo"]');
   await page.waitForSelector('#demo-strip:not([hidden])');
   await go('assistants');
-  check('Demo mode shows the 9 sample assistants', await page.locator('.assistant').count() === 9);
+  check('Demo mode shows the 10 sample assistants', await page.locator('.assistant').count() === 10);
   check('my information never shows up in Demo mode', !(await viewText()).includes('Robin'));
   await go('ok');
   check('Demo: 5 requests waiting', await page.locator('.request').count() === 5);
@@ -301,6 +301,20 @@ for (const [label, size] of [['phone', { width: 390, height: 844 }], ['computer'
   check('a file from a newer version is refused plainly', (await page.locator('#confirm').textContent()).includes('newer version'));
   await page.click('#confirm-ok');
   check('and nothing was changed', JSON.stringify(await my()) === before);
+
+  // ---- Adding an assistant is one tap and Add ----
+  await go('assistants');
+  await page.click('[data-act="open-add-assistant"]');
+  check('names already added are not offered again', await page.locator('.pick[data-value="Wren"]').count() === 0 && await page.locator('.pick').count() > 5);
+  check('name picks are announced as not pressed before any tap', await page.locator('.pick[aria-pressed="false"]').count() === await page.locator('.pick').count());
+  await page.click('.pick[data-value="DeepSeek"]');
+  await page.fill('#new-assistant-name', 'Something else');
+  check('editing the name by hand clears the pressed pick', await page.locator('.pick[aria-pressed="true"]').count() === 0);
+  await page.click('.pick[data-value="Mistral Le Chat"]');
+  check('tapping a suggested name fills it in', await page.inputValue('#new-assistant-name') === 'Mistral Le Chat');
+  await page.click('#sheet .btn-primary');
+  check('one tap and Add is enough to add an assistant', (await my()).assistants.some((a) => a.name === 'Mistral Le Chat'));
+  check('the add form has no sideways scroll', await noSideScroll());
 
   check('no errors in the browser', errors.length === 0, errors.join(' | '));
   await ctx.close();

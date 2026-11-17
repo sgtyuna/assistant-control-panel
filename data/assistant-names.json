@@ -1,0 +1,7 @@
+{
+  "about": "Names offered as one-tap picks when adding an assistant. This is only a list of suggestions. Nothing here is added until you pick it, and you can always type any other name.",
+  "names": [
+    "Claude", "ChatGPT", "Gemini", "Siri", "Alexa", "Grok", "Perplexity", "Microsoft Copilot", "Meta AI", "Muse",
+    "Mistral Le Chat", "DeepSeek", "Pi", "Bixby", "Google Assistant", "Amazon Rufus", "Manus", "Notion AI", "Zoom AI Companion"
+  ]
+}

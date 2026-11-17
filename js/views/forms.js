@@ -40,8 +40,12 @@ const sheet = (title, form, body, submit) => `
       <button class="btn btn-primary">${submit}</button></div>
   </form>`;
 
-export function addAssistantForm() {
+export function addAssistantForm(ideas = [], data = null) {
+  const have = new Set(((data && data.assistants) || []).filter((a) => !a.removed).map((a) => a.name.toLowerCase()));
+  const picks = ideas.filter((n) => !have.has(n.toLowerCase()));
   return sheet('Add an assistant', 'add-assistant', `
+    ${picks.length ? `<p class="label">Tap one, or type any name below</p>
+    <div class="picks">${picks.map((n) => `<button type="button" class="pick" aria-pressed="false" data-act="pick-name" data-value="${esc(n)}">${esc(n)}</button>`).join('')}</div>` : ''}
     <label class="field"><span>Its name</span><input name="name" id="new-assistant-name" required maxlength="40" autocomplete="off" placeholder="The assistant's name"></label>
     <p class="label">Spending limits (leave blank for no limit)</p>
     ${limitFields()}

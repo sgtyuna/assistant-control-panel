@@ -15,6 +15,7 @@ Three things are kept apart and never mixed:
 | The app (an empty shell) | `index.html`, `css/`, `js/`. No assistant, limit, rule or name is written in the code. |
 | Your information | The browser's local storage on your device. Never in this repo. |
 | Sample data | `data/demo.json`. Shown only in Demo mode, which is clearly marked. |
+| Name suggestions | `data/assistant-names.json`. One-tap picks in the Add an assistant form. Nothing is added until you pick one. |
 
 - `js/store.js` is the only file that reads or writes stored information. Real connections can replace it later.
 - `js/logic.js` holds the rules (blocked, then paused, then approve-first, then trusted) and the sums. `js/ops.js` holds every change to the record. Neither has screen code.

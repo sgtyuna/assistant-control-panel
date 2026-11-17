@@ -14,7 +14,8 @@ globalThis.localStorage = {
   setItem: (k, v) => { if (failWrites) throw new Error('full'); mem.set(k, String(v)); },
   removeItem: (k) => mem.delete(k),
 };
-globalThis.fetch = async () => ({ json: async () => JSON.parse(JSON.stringify(raw)) });
+const ideas = JSON.parse(readFileSync(root + 'data/assistant-names.json', 'utf8'));
+globalThis.fetch = async (u) => ({ json: async () => JSON.parse(JSON.stringify(String(u).includes('assistant-names') ? ideas : raw)) });
 
 const { store, emptyInfo, migrate } = await import('../js/store.js');
 const { resolveDemo } = await import('../js/demo.js');
@@ -37,7 +38,7 @@ check('every item points at an assistant that exists',
   [...raw.requests, ...raw.actions, ...raw.subscriptions].every((x) => aIds.has(x.assistantId)));
 check('every category named on an item exists',
   [...raw.requests, ...raw.actions].every((x) => x.category == null || cIds.has(x.category)));
-check('9 assistants, 1 paused', raw.assistants.length === 9 && raw.assistants.filter((a) => a.paused).length === 1);
+check('10 assistants, 1 paused', raw.assistants.length === 10 && raw.assistants.filter((a) => a.paused).length === 1);
 check('5 requests waiting, $183.39 in all',
   raw.requests.length === 5 && near(raw.requests.reduce((s, r) => s + Number(r.amount || 0), 0), 183.39));
 
@@ -85,10 +86,11 @@ check('an empty record has no assistants, actions or requests',
 check('a record from a newer version is refused, not changed', migrate({ schemaVersion: 99 }) === null);
 
 await store.init();
+check('name suggestions load from their own file, and add nothing by themselves', store.nameIdeas.includes('Muse') && store.my.assistants.length === 0);
 check('first open: no home screen picked, Demo mode off', store.my.settings.homeScreen === null && store.demo === false);
 store.setHomeScreen('activity');
 await store.setDemo(true);
-check('Demo mode shows sample data', store.data.assistants.length === 9);
+check('Demo mode shows sample data', store.data.assistants.length === 10);
 check('sample data never enters my information',
   store.my.assistants.length === 0 && !mem.get('acp.myInfo').includes('Fernhill'));
 await store.setDemo(false);
