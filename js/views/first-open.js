@@ -30,7 +30,7 @@ const PREVIEWS = {
     </div>`,
 };
 
-export function renderFirstOpen(current) {
+export function renderFirstOpen(current, canLoad) {
   return `
     <div class="chooser" role="dialog" aria-modal="true" aria-labelledby="chooser-title">
       <div class="chooser-inner">
@@ -46,6 +46,7 @@ export function renderFirstOpen(current) {
             </button>`).join('')}
         </div>
         ${current ? '<button class="btn" data-home-cancel>Keep it as it is</button>' : ''}
+        ${!current && canLoad ? '<button class="btn btn-small" data-act="load-copy">I have a saved copy. Load it</button>' : ''}
       </div>
     </div>`;
 }

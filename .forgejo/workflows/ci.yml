@@ -8,7 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: The behaviour rules
+        run: node --test tests/rules.test.mjs
       - name: Sample data, sums, times and storage warnings
         run: node scripts/check.mjs
-      - name: Browser test script has no syntax errors
-        run: node --check tests/browser.test.mjs
+      - name: Every script has no syntax errors
+        run: for f in js/*.js js/views/*.js tests/*.mjs scripts/*.mjs; do node --check "$f" || exit 1; done

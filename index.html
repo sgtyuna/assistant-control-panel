@@ -20,14 +20,15 @@
 
   <div id="shell" hidden>
     <div class="top">
-    <div id="demo-strip" class="demo-strip" hidden>
-      <span><b>DEMO MODE</b> · Sample data, not your record</span>
-      <button data-action="toggle-demo">Turn off</button>
-    </div>
-    <header class="topbar">
-      <div class="brand">Assistant Control Panel</div>
-      <button id="pause-all" class="pause-all" data-inert aria-label="Pause Everything"></button>
-    </header>
+      <div id="demo-strip" class="demo-strip" hidden>
+        <span><b>DEMO MODE</b> · Sample data, not your record</span>
+        <button data-act="toggle-demo">Turn off</button>
+      </div>
+      <header class="topbar" id="topbar">
+        <a class="brand" id="brand" href="#"></a>
+        <a class="bell" id="bell" href="#alerts"></a>
+        <button id="pause-all" class="pause-all" data-act="pause-all"></button>
+      </header>
     </div>
     <div id="notice" class="notice" role="alert" hidden></div>
     <div class="body">
@@ -36,7 +37,11 @@
     </div>
   </div>
 
+  <div id="alert-banner" class="alert-banner" role="status" aria-live="polite" hidden></div>
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <dialog id="sheet" class="sheet"></dialog>
+  <dialog id="confirm" class="sheet small"></dialog>
+  <input type="file" id="load-file" accept=".json,application/json" hidden>
   <noscript>This app needs JavaScript turned on.</noscript>
   <script type="module" src="js/app.js"></script>
 </body>

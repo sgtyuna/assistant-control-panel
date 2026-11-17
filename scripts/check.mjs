@@ -16,7 +16,8 @@ globalThis.localStorage = {
 };
 globalThis.fetch = async () => ({ json: async () => JSON.parse(JSON.stringify(raw)) });
 
-const { store, resolveDemo, emptyInfo, migrate } = await import('../js/store.js');
+const { store, emptyInfo, migrate } = await import('../js/store.js');
+const { resolveDemo } = await import('../js/demo.js');
 const { spending, counts } = await import('../js/logic.js');
 
 let passed = 0, failed = 0;
@@ -58,7 +59,7 @@ check('the sample "about" note is not carried into the data', !('about' in data)
 check('5 actions can still be undone, each with a deadline after now',
   data.actions.filter((a) => a.undoUntil).length === 5 && data.actions.filter((a) => a.undoUntil).every((a) => new Date(a.undoUntil) > noon));
 check('at noon every item keeps its written clock time',
-  new Date(data.requests[0].at).getHours() === 9 && new Date(data.requests[0].at).getMinutes() === 12);
+  new Date(data.requests[1].at).getHours() === 9 && new Date(data.requests[1].at).getMinutes() === 12);
 
 // ---- Times at every hour of several days (a Sunday and the 1st of a month included)
 let timesOk = true, why = '';

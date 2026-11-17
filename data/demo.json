@@ -21,10 +21,10 @@
     {"id": "meta", "name": "Meta AI", "paused": false, "limits": {"perPurchase": 20, "perDay": 30, "perWeek": 50, "perMonth": 100}, "rules": [{"type": "over", "amount": 20}], "trusted": [], "blocked": [], "access": [{"kind": "email", "label": "Email"}], "quietHours": null}
   ],
   "requests": [
+    {"id": "r4", "assistantId": "alexa", "kind": "bought", "text": "Reorder the weekly groceries from Fernhill Market", "party": "Fernhill Market", "amount": 86.4, "category": "groceries", "why": "It would go over the $150 daily limit.", "when": {"daysAgo": 0, "time": "10:30"}, "undoInHours": 48},
     {"id": "r1", "assistantId": "claude", "kind": "bought", "text": "Buy a standing desk mat from Northgate Hardware", "party": "Northgate Hardware", "amount": 64.0, "category": "household", "why": "It is over the $50 limit for one purchase.", "when": {"daysAgo": 0, "time": "09:12"}, "undoInHours": 48},
     {"id": "r2", "assistantId": "gemini", "kind": "booked", "text": "Book a table for 4 at Saltbox Kitchen, Friday 7:00 PM, with a deposit", "party": "Saltbox Kitchen", "amount": 20.0, "category": "travel", "why": "It would go over the $150 weekly limit.", "when": {"daysAgo": 0, "time": "08:40"}},
     {"id": "r3", "assistantId": "copilot", "kind": "emailed", "text": "Email Jordan Vale to confirm Thursday's 2:00 PM call", "party": "Jordan Vale", "amount": 0, "category": null, "why": "You asked to OK emails to someone new.", "when": {"daysAgo": 0, "time": "07:55"}},
-    {"id": "r4", "assistantId": "alexa", "kind": "bought", "text": "Reorder the weekly groceries from Fernhill Market", "party": "Fernhill Market", "amount": 86.4, "category": "groceries", "why": "It would go over the $150 daily limit.", "when": {"daysAgo": 0, "time": "10:30"}, "undoInHours": 48},
     {"id": "r5", "assistantId": "grok", "kind": "bought", "text": "Start a Skyline News Plus subscription, $12.99 every month", "party": "Skyline News", "amount": 12.99, "category": "subscriptions", "why": "It has never bought from this store before.", "when": {"daysAgo": 1, "time": "14:05"}, "repeats": "month"}
   ],
   "actions": [
