@@ -16,7 +16,8 @@ globalThis.localStorage = {
 };
 globalThis.fetch = async () => ({ json: async () => JSON.parse(JSON.stringify(raw)) });
 
-const { store, resolveDemo, emptyInfo, migrate } = await import('../js/store.js');
+const { store, emptyInfo, migrate } = await import('../js/store.js');
+const { resolveDemo } = await import('../js/demo.js');
 const { spending, counts } = await import('../js/logic.js');
 
 let passed = 0, failed = 0;
@@ -58,7 +59,7 @@ check('the sample "about" note is not carried into the data', !('about' in data)
 check('5 actions can still be undone, each with a deadline after now',
   data.actions.filter((a) => a.undoUntil).length === 5 && data.actions.filter((a) => a.undoUntil).every((a) => new Date(a.undoUntil) > noon));
 check('at noon every item keeps its written clock time',
-  new Date(data.requests[0].at).getHours() === 9 && new Date(data.requests[0].at).getMinutes() === 12);
+  new Date(data.requests[1].at).getHours() === 9 && new Date(data.requests[1].at).getMinutes() === 12);
 
 // ---- Times at every hour of several days (a Sunday and the 1st of a month included)
 let timesOk = true, why = '';
@@ -101,6 +102,19 @@ check('a failed save raises the warning straight away', store.storageOk === fals
 store.storageOk = true; emits = 0;
 await store.setDemo(true);
 check('a failed Demo-mode save raises the warning too', store.storageOk === false && emits > 0);
+
+// A record from a newer version is in this browser: loading a file must ask first.
+failWrites = false; store.storageOk = true;
+await store.setDemo(false);
+const newer = JSON.stringify({ schemaVersion: 99, assistants: [{ id: 'a1', name: 'Kept' }] });
+mem.set('acp.myInfo', newer);
+store.my = emptyInfo(); store.tooNew = false;
+await store.init();
+check('a newer stored record counts as something a loaded file would replace', store.tooNew === true && store.hasStored === true);
+store.saveMy();
+check('a newer stored record is left alone until a file is loaded on purpose', mem.get('acp.myInfo') === newer);
+store.eraseMy();
+check('an empty record is nothing to replace', store.hasStored === false);
 
 console.log(`\n${passed} passed, ${failed} failed`);
 process.exit(failed ? 1 : 0);

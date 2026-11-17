@@ -1,187 +1,68 @@
 {
   "about": "Sample data for Demo mode only. Everything here is made up. Times are written as days ago plus a clock time, so the sample always looks recent. 'within' keeps an item inside the current week or month so the totals stay believable on any day.",
-  "schemaVersion": 1,
+  "schemaVersion": 2,
+  "settings": {"quietHours": {"on": false, "from": "23:00", "to": "06:00", "days": []}},
   "categories": [
-    { "id": "groceries", "name": "Groceries", "monthlyBudget": 400 },
-    { "id": "travel", "name": "Travel", "monthlyBudget": 600 },
-    { "id": "gifts", "name": "Gifts", "monthlyBudget": 120 },
-    { "id": "household", "name": "Household", "monthlyBudget": 200 },
-    { "id": "subscriptions", "name": "Subscriptions", "monthlyBudget": 80 }
+    {"id": "groceries", "name": "Groceries", "monthlyBudget": 400},
+    {"id": "travel", "name": "Travel", "monthlyBudget": 600},
+    {"id": "gifts", "name": "Gifts", "monthlyBudget": 120},
+    {"id": "household", "name": "Household", "monthlyBudget": 200},
+    {"id": "subscriptions", "name": "Subscriptions", "monthlyBudget": 80}
   ],
   "assistants": [
-    {
-      "id": "claude", "name": "Claude", "paused": false,
-      "limits": { "perPurchase": 50, "perDay": 100, "perWeek": 250, "perMonth": 600 },
-      "rules": ["Ask me before anything over $50", "Ask me before emailing someone new"],
-      "trusted": ["Paperwren Books", "Corner Roast Coffee", "Dana Okafor"],
-      "blocked": ["QuickCash Loans"],
-      "access": [
-        { "kind": "email", "label": "Email" },
-        { "kind": "calendar", "label": "Calendar" },
-        { "kind": "card", "label": "Card ending 4417" }
-      ],
-      "quietHours": { "from": "22:00", "to": "06:30", "days": [] }
-    },
-    {
-      "id": "chatgpt", "name": "ChatGPT", "paused": false,
-      "limits": { "perPurchase": 75, "perDay": 150, "perWeek": 300, "perMonth": 500 },
-      "rules": ["Ask me before anything over $75"],
-      "trusted": ["Bluebird Air", "Tidewater Hotel"],
-      "blocked": [],
-      "access": [
-        { "kind": "calendar", "label": "Calendar" },
-        { "kind": "card", "label": "Card ending 4417" }
-      ],
-      "quietHours": null
-    },
-    {
-      "id": "gemini", "name": "Gemini", "paused": false,
-      "limits": { "perPurchase": 60, "perDay": 100, "perWeek": 150, "perMonth": 450 },
-      "rules": ["Ask me before anything over $60", "Ask me before booking anything on a weekend"],
-      "trusted": ["Saltbox Kitchen", "Zipline Rides"],
-      "blocked": [],
-      "access": [
-        { "kind": "email", "label": "Email" },
-        { "kind": "calendar", "label": "Calendar" },
-        { "kind": "card", "label": "Card ending 9020" }
-      ],
-      "quietHours": null
-    },
-    {
-      "id": "siri", "name": "Siri", "paused": true,
-      "limits": { "perPurchase": 25, "perDay": 50, "perWeek": 100, "perMonth": 200 },
-      "rules": ["Ask me before anything over $25"],
-      "trusted": ["Corner Roast Coffee"],
-      "blocked": [],
-      "access": [
-        { "kind": "calendar", "label": "Calendar" },
-        { "kind": "card", "label": "Card ending 9020" }
-      ],
-      "quietHours": { "from": "21:00", "to": "07:00", "days": [] }
-    },
-    {
-      "id": "alexa", "name": "Alexa", "paused": false,
-      "limits": { "perPurchase": 120, "perDay": 150, "perWeek": 250, "perMonth": 550 },
-      "rules": ["Ask me before anything over $120"],
-      "trusted": ["Fernhill Market", "Northgate Hardware"],
-      "blocked": ["Snapdeal Outlet"],
-      "access": [
-        { "kind": "card", "label": "Card ending 4417" }
-      ],
-      "quietHours": { "from": "00:00", "to": "23:59", "days": [0] }
-    },
-    {
-      "id": "grok", "name": "Grok", "paused": false,
-      "limits": { "perPurchase": 20, "perDay": 40, "perWeek": 60, "perMonth": 100 },
-      "rules": ["Ask me before buying from a new store"],
-      "trusted": [],
-      "blocked": [],
-      "access": [
-        { "kind": "card", "label": "Card ending 9020, for one task", "expiresInDays": 2 }
-      ],
-      "quietHours": null
-    },
-    {
-      "id": "perplexity", "name": "Perplexity", "paused": false,
-      "limits": { "perPurchase": 40, "perDay": 60, "perWeek": 100, "perMonth": 150 },
-      "rules": ["Ask me before anything over $40"],
-      "trusted": ["Paperwren Books"],
-      "blocked": [],
-      "access": [
-        { "kind": "card", "label": "Card ending 4417" }
-      ],
-      "quietHours": null
-    },
-    {
-      "id": "copilot", "name": "Microsoft Copilot", "paused": false,
-      "limits": { "perPurchase": 50, "perDay": 100, "perWeek": 150, "perMonth": 300 },
-      "rules": ["Ask me before emailing someone new", "Ask me before accepting a meeting after 5 PM"],
-      "trusted": ["Marcus Lind", "Priya Raman"],
-      "blocked": ["Prize Desk Promotions"],
-      "access": [
-        { "kind": "email", "label": "Email, for one week", "expiresInDays": 5 },
-        { "kind": "calendar", "label": "Calendar" }
-      ],
-      "quietHours": null
-    },
-    {
-      "id": "meta", "name": "Meta AI", "paused": false,
-      "limits": { "perPurchase": 20, "perDay": 30, "perWeek": 50, "perMonth": 100 },
-      "rules": ["Ask me before anything over $20"],
-      "trusted": [],
-      "blocked": [],
-      "access": [
-        { "kind": "email", "label": "Email" }
-      ],
-      "quietHours": null
-    }
+    {"id": "claude", "name": "Claude", "paused": false, "limits": {"perPurchase": 50, "perDay": 100, "perWeek": 250, "perMonth": 600}, "rules": [{"type": "over", "amount": 50}, {"type": "newPerson"}], "trusted": ["Paperwren Books", "Corner Roast Coffee", "Dana Okafor"], "blocked": ["QuickCash Loans"], "access": [{"kind": "email", "label": "Email"}, {"kind": "calendar", "label": "Calendar"}, {"kind": "card", "label": "Card ending 4417"}], "quietHours": {"on": true, "from": "22:00", "to": "06:30", "days": []}},
+    {"id": "chatgpt", "name": "ChatGPT", "paused": false, "limits": {"perPurchase": 75, "perDay": 150, "perWeek": 300, "perMonth": 500}, "rules": [{"type": "over", "amount": 75}], "trusted": ["Bluebird Air", "Tidewater Hotel"], "blocked": [], "access": [{"kind": "calendar", "label": "Calendar"}, {"kind": "card", "label": "Card ending 4417"}], "quietHours": null},
+    {"id": "gemini", "name": "Gemini", "paused": false, "limits": {"perPurchase": 60, "perDay": 100, "perWeek": 150, "perMonth": 450}, "rules": [{"type": "over", "amount": 60}, {"type": "custom", "text": "Ask me before booking anything on a weekend"}], "trusted": ["Saltbox Kitchen", "Zipline Rides"], "blocked": [], "access": [{"kind": "email", "label": "Email"}, {"kind": "calendar", "label": "Calendar"}, {"kind": "card", "label": "Card ending 9020"}], "quietHours": null},
+    {"id": "siri", "name": "Siri", "paused": true, "limits": {"perPurchase": 25, "perDay": 50, "perWeek": 100, "perMonth": 200}, "rules": [{"type": "over", "amount": 25}], "trusted": ["Corner Roast Coffee"], "blocked": [], "access": [{"kind": "calendar", "label": "Calendar"}, {"kind": "card", "label": "Card ending 9020"}], "quietHours": {"on": true, "from": "21:00", "to": "07:00", "days": []}},
+    {"id": "alexa", "name": "Alexa", "paused": false, "limits": {"perPurchase": 120, "perDay": 150, "perWeek": 250, "perMonth": 550}, "rules": [{"type": "over", "amount": 120}], "trusted": ["Fernhill Market", "Northgate Hardware"], "blocked": ["Snapdeal Outlet"], "access": [{"kind": "card", "label": "Card ending 4417"}], "quietHours": {"on": true, "from": "00:00", "to": "23:59", "days": [0]}},
+    {"id": "grok", "name": "Grok", "paused": false, "limits": {"perPurchase": 20, "perDay": 40, "perWeek": 60, "perMonth": 100}, "rules": [{"type": "newStore"}], "trusted": [], "blocked": [], "access": [{"kind": "card", "label": "Card ending 9020, for one task", "expiresInDays": 2}], "quietHours": null},
+    {"id": "perplexity", "name": "Perplexity", "paused": false, "limits": {"perPurchase": 40, "perDay": 60, "perWeek": 100, "perMonth": 150}, "rules": [{"type": "over", "amount": 40}], "trusted": ["Paperwren Books"], "blocked": [], "access": [{"kind": "card", "label": "Card ending 4417"}], "quietHours": null},
+    {"id": "copilot", "name": "Microsoft Copilot", "paused": false, "limits": {"perPurchase": 50, "perDay": 100, "perWeek": 150, "perMonth": 300}, "rules": [{"type": "newPerson"}, {"type": "custom", "text": "Ask me before accepting a meeting after 5 PM"}], "trusted": ["Marcus Lind", "Priya Raman"], "blocked": ["Prize Desk Promotions"], "access": [{"kind": "email", "label": "Email, for one week", "expiresInDays": 5}, {"kind": "calendar", "label": "Calendar"}], "quietHours": null},
+    {"id": "meta", "name": "Meta AI", "paused": false, "limits": {"perPurchase": 20, "perDay": 30, "perWeek": 50, "perMonth": 100}, "rules": [{"type": "over", "amount": 20}], "trusted": [], "blocked": [], "access": [{"kind": "email", "label": "Email"}], "quietHours": null}
   ],
   "requests": [
-    {
-      "id": "r1", "assistantId": "claude", "kind": "bought",
-      "text": "Buy a standing desk mat from Northgate Hardware",
-      "party": "Northgate Hardware", "amount": 64.00, "category": "household",
-      "why": "It is over the $50 limit for one purchase.",
-      "when": { "daysAgo": 0, "time": "09:12" }
-    },
-    {
-      "id": "r2", "assistantId": "gemini", "kind": "booked",
-      "text": "Book a table for 4 at Saltbox Kitchen, Friday 7:00 PM, with a deposit",
-      "party": "Saltbox Kitchen", "amount": 20.00, "category": "travel",
-      "why": "It would go over the $150 weekly limit.",
-      "when": { "daysAgo": 0, "time": "08:40" }
-    },
-    {
-      "id": "r3", "assistantId": "copilot", "kind": "emailed",
-      "text": "Email Jordan Vale to confirm Thursday's 2:00 PM call",
-      "party": "Jordan Vale", "amount": 0, "category": null,
-      "why": "You asked to OK emails to someone new.",
-      "when": { "daysAgo": 0, "time": "07:55" }
-    },
-    {
-      "id": "r4", "assistantId": "alexa", "kind": "bought",
-      "text": "Reorder the weekly groceries from Fernhill Market",
-      "party": "Fernhill Market", "amount": 86.40, "category": "groceries",
-      "why": "The Groceries budget is already over for this month.",
-      "when": { "daysAgo": 1, "time": "18:20" }
-    },
-    {
-      "id": "r5", "assistantId": "grok", "kind": "bought",
-      "text": "Start a Skyline News Plus subscription, $12.99 every month",
-      "party": "Skyline News", "amount": 12.99, "category": "subscriptions",
-      "why": "It has never bought from this store before.",
-      "when": { "daysAgo": 1, "time": "14:05" }
-    }
+    {"id": "r4", "assistantId": "alexa", "kind": "bought", "text": "Reorder the weekly groceries from Fernhill Market", "party": "Fernhill Market", "amount": 86.4, "category": "groceries", "why": "It would go over the $150 daily limit.", "when": {"daysAgo": 0, "time": "10:30"}, "undoInHours": 48},
+    {"id": "r1", "assistantId": "claude", "kind": "bought", "text": "Buy a standing desk mat from Northgate Hardware", "party": "Northgate Hardware", "amount": 64.0, "category": "household", "why": "It is over the $50 limit for one purchase.", "when": {"daysAgo": 0, "time": "09:12"}, "undoInHours": 48},
+    {"id": "r2", "assistantId": "gemini", "kind": "booked", "text": "Book a table for 4 at Saltbox Kitchen, Friday 7:00 PM, with a deposit", "party": "Saltbox Kitchen", "amount": 20.0, "category": "travel", "why": "It would go over the $150 weekly limit.", "when": {"daysAgo": 0, "time": "08:40"}},
+    {"id": "r3", "assistantId": "copilot", "kind": "emailed", "text": "Email Jordan Vale to confirm Thursday's 2:00 PM call", "party": "Jordan Vale", "amount": 0, "category": null, "why": "You asked to OK emails to someone new.", "when": {"daysAgo": 0, "time": "07:55"}},
+    {"id": "r5", "assistantId": "grok", "kind": "bought", "text": "Start a Skyline News Plus subscription, $12.99 every month", "party": "Skyline News", "amount": 12.99, "category": "subscriptions", "why": "It has never bought from this store before.", "when": {"daysAgo": 1, "time": "14:05"}, "repeats": "month"}
   ],
   "actions": [
-    { "id": "a1", "assistantId": "alexa", "kind": "bought", "text": "Bought the weekly groceries from Fernhill Market", "party": "Fernhill Market", "amount": 112.35, "category": "groceries", "when": { "daysAgo": 0, "time": "08:05" }, "within": "week", "undoInHours": 20 },
-    { "id": "a2", "assistantId": "copilot", "kind": "emailed", "text": "Emailed Marcus Lind the meeting notes from Tuesday", "party": "Marcus Lind", "amount": 0, "category": null, "when": { "daysAgo": 0, "time": "07:48" } },
-    { "id": "a3", "assistantId": "gemini", "kind": "booked", "text": "Booked a ride to the airport with Zipline Rides", "party": "Zipline Rides", "amount": 46.00, "category": "travel", "when": { "daysAgo": 0, "time": "07:10" }, "within": "week", "undoInHours": 5 },
-    { "id": "a4", "assistantId": "grok", "kind": "bought", "text": "Bought phone accessories from Nightowl Gadgets", "party": "Nightowl Gadgets", "amount": 18.75, "category": "household", "when": { "daysAgo": 0, "time": "03:12" }, "flag": "Bought at 3:12 AM from a store it has never used.", "undoInHours": 30 },
-    { "id": "a5", "assistantId": "claude", "kind": "bought", "text": "Bought two paperbacks from Paperwren Books", "party": "Paperwren Books", "amount": 27.98, "category": "gifts", "when": { "daysAgo": 1, "time": "16:30" }, "within": "week", "undoInHours": 48 },
-    { "id": "a6", "assistantId": "claude", "kind": "emailed", "text": "Emailed Dana Okafor to move lunch to Wednesday", "party": "Dana Okafor", "amount": 0, "category": null, "when": { "daysAgo": 1, "time": "15:02" } },
-    { "id": "a7", "assistantId": "chatgpt", "kind": "booked", "text": "Booked one night at Tidewater Hotel for the 22nd", "party": "Tidewater Hotel", "amount": 189.00, "category": "travel", "when": { "daysAgo": 1, "time": "11:44" }, "within": "month", "flag": "Much bigger than its usual purchase.", "undoInHours": 60 },
-    { "id": "a8", "assistantId": "gemini", "kind": "bought", "text": "Bought a birthday bouquet from Petal & Stem Florist", "party": "Petal & Stem Florist", "amount": 54.00, "category": "gifts", "when": { "daysAgo": 1, "time": "10:15" }, "within": "week" },
-    { "id": "a9", "assistantId": "perplexity", "kind": "bought", "text": "Bought a research report from Quillbox", "party": "Quillbox", "amount": 24.00, "category": "household", "when": { "daysAgo": 2, "time": "13:20" }, "within": "month" },
-    { "id": "a10", "assistantId": "gemini", "kind": "booked", "text": "Booked dinner for 2 at Saltbox Kitchen, with a deposit", "party": "Saltbox Kitchen", "amount": 38.00, "category": "travel", "when": { "daysAgo": 2, "time": "12:00" }, "within": "week" },
-    { "id": "a11", "assistantId": "alexa", "kind": "bought", "text": "Bought a pantry restock from Fernhill Market", "party": "Fernhill Market", "amount": 94.10, "category": "groceries", "when": { "daysAgo": 3, "time": "09:30" }, "within": "month" },
-    { "id": "a12", "assistantId": "siri", "kind": "bought", "text": "Bought a coffee order from Corner Roast Coffee", "party": "Corner Roast Coffee", "amount": 11.50, "category": "groceries", "when": { "daysAgo": 3, "time": "08:02" }, "within": "month" },
-    { "id": "a13", "assistantId": "copilot", "kind": "booked", "text": "Accepted Priya Raman's meeting for Monday 10:00 AM", "party": "Priya Raman", "amount": 0, "category": null, "when": { "daysAgo": 3, "time": "16:45" } },
-    { "id": "a14", "assistantId": "meta", "kind": "emailed", "text": "Emailed a reply to a contest notice from Prize Desk Promotions", "party": "Prize Desk Promotions", "amount": 0, "category": null, "when": { "daysAgo": 4, "time": "19:30" }, "flag": "Emailed someone it has never written to before." },
-    { "id": "a15", "assistantId": "chatgpt", "kind": "booked", "text": "Booked a round-trip flight with Bluebird Air", "party": "Bluebird Air", "amount": 248.00, "category": "travel", "when": { "daysAgo": 5, "time": "10:20" }, "within": "month" },
-    { "id": "a16", "assistantId": "alexa", "kind": "bought", "text": "Bought the weekly groceries from Fernhill Market", "party": "Fernhill Market", "amount": 121.80, "category": "groceries", "when": { "daysAgo": 7, "time": "08:10" }, "within": "month" },
-    { "id": "a17", "assistantId": "alexa", "kind": "bought", "text": "Bought furnace filters from Northgate Hardware", "party": "Northgate Hardware", "amount": 42.60, "category": "household", "when": { "daysAgo": 8, "time": "14:15" }, "within": "month" },
-    { "id": "a18", "assistantId": "claude", "kind": "bought", "text": "Started a Lumen Streaming subscription, $9.99 every month", "party": "Lumen Streaming", "amount": 9.99, "category": "subscriptions", "when": { "daysAgo": 9, "time": "20:05" }, "within": "month" },
-    { "id": "a19", "assistantId": "perplexity", "kind": "bought", "text": "Started a Quillbox Pro subscription, $15.00 every month", "party": "Quillbox", "amount": 15.00, "category": "subscriptions", "when": { "daysAgo": 10, "time": "11:00" }, "within": "month" },
-    { "id": "a20", "assistantId": "alexa", "kind": "bought", "text": "Bought the weekly groceries from Fernhill Market", "party": "Fernhill Market", "amount": 103.25, "category": "groceries", "when": { "daysAgo": 14, "time": "08:12" }, "within": "month" },
-    { "id": "a21", "assistantId": "siri", "kind": "booked", "text": "Booked a haircut at Maple Street Barbers", "party": "Maple Street Barbers", "amount": 0, "category": null, "when": { "daysAgo": 6, "time": "09:40" } },
-    { "id": "a22", "assistantId": "chatgpt", "kind": "bought", "text": "Bought a gift card from Paperwren Books", "party": "Paperwren Books", "amount": 40.00, "category": "gifts", "when": { "daysAgo": 6, "time": "15:25" }, "within": "month", "status": "undone" },
-    { "id": "a23", "assistantId": "gemini", "kind": "bought", "text": "Buy concert tickets from Stagepass", "party": "Stagepass", "amount": 140.00, "category": "gifts", "when": { "daysAgo": 4, "time": "12:10" }, "status": "declined" }
+    {"id": "a1", "assistantId": "alexa", "kind": "bought", "text": "Bought the weekly groceries from Fernhill Market", "party": "Fernhill Market", "amount": 112.35, "category": "groceries", "when": {"daysAgo": 0, "time": "08:05"}, "within": "week", "undoInHours": 20},
+    {"id": "a2", "assistantId": "copilot", "kind": "emailed", "text": "Emailed Marcus Lind the meeting notes from Tuesday", "party": "Marcus Lind", "amount": 0, "category": null, "when": {"daysAgo": 0, "time": "07:48"}},
+    {"id": "a3", "assistantId": "gemini", "kind": "booked", "text": "Booked a ride to the airport with Zipline Rides", "party": "Zipline Rides", "amount": 46.0, "category": "travel", "when": {"daysAgo": 0, "time": "07:10"}, "within": "week", "undoInHours": 5},
+    {"id": "a4", "assistantId": "grok", "kind": "bought", "text": "Bought phone accessories from Nightowl Gadgets", "party": "Nightowl Gadgets", "amount": 18.75, "category": "household", "when": {"daysAgo": 0, "time": "03:12"}, "flag": "Bought at 3:12 AM from a store it has never used.", "undoInHours": 30},
+    {"id": "a5", "assistantId": "claude", "kind": "bought", "text": "Bought two paperbacks from Paperwren Books", "party": "Paperwren Books", "amount": 27.98, "category": "gifts", "when": {"daysAgo": 1, "time": "16:30"}, "within": "week", "undoInHours": 48},
+    {"id": "a6", "assistantId": "claude", "kind": "emailed", "text": "Emailed Dana Okafor to move lunch to Wednesday", "party": "Dana Okafor", "amount": 0, "category": null, "when": {"daysAgo": 1, "time": "15:02"}},
+    {"id": "a7", "assistantId": "chatgpt", "kind": "booked", "text": "Booked one night at Tidewater Hotel for the 22nd", "party": "Tidewater Hotel", "amount": 189.0, "category": "travel", "when": {"daysAgo": 1, "time": "11:44"}, "within": "month", "flag": "Much bigger than its usual purchase.", "undoInHours": 60},
+    {"id": "a8", "assistantId": "gemini", "kind": "bought", "text": "Bought a birthday bouquet from Petal & Stem Florist", "party": "Petal & Stem Florist", "amount": 54.0, "category": "gifts", "when": {"daysAgo": 1, "time": "10:15"}, "within": "week"},
+    {"id": "a9", "assistantId": "perplexity", "kind": "bought", "text": "Bought a research report from Quillbox", "party": "Quillbox", "amount": 24.0, "category": "household", "when": {"daysAgo": 2, "time": "13:20"}, "within": "month"},
+    {"id": "a10", "assistantId": "gemini", "kind": "booked", "text": "Booked dinner for 2 at Saltbox Kitchen, with a deposit", "party": "Saltbox Kitchen", "amount": 38.0, "category": "travel", "when": {"daysAgo": 2, "time": "12:00"}, "within": "week"},
+    {"id": "a11", "assistantId": "alexa", "kind": "bought", "text": "Bought a pantry restock from Fernhill Market", "party": "Fernhill Market", "amount": 94.1, "category": "groceries", "when": {"daysAgo": 3, "time": "09:30"}, "within": "month"},
+    {"id": "a12", "assistantId": "siri", "kind": "bought", "text": "Bought a coffee order from Corner Roast Coffee", "party": "Corner Roast Coffee", "amount": 11.5, "category": "groceries", "when": {"daysAgo": 3, "time": "08:02"}, "within": "month"},
+    {"id": "a13", "assistantId": "copilot", "kind": "booked", "text": "Accepted Priya Raman's meeting for Monday 10:00 AM", "party": "Priya Raman", "amount": 0, "category": null, "when": {"daysAgo": 3, "time": "16:45"}},
+    {"id": "a14", "assistantId": "meta", "kind": "emailed", "text": "Emailed a reply to a contest notice from Prize Desk Promotions", "party": "Prize Desk Promotions", "amount": 0, "category": null, "when": {"daysAgo": 4, "time": "19:30"}, "flag": "Emailed someone it has never written to before."},
+    {"id": "a15", "assistantId": "chatgpt", "kind": "booked", "text": "Booked a round-trip flight with Bluebird Air", "party": "Bluebird Air", "amount": 248.0, "category": "travel", "when": {"daysAgo": 5, "time": "10:20"}, "within": "month"},
+    {"id": "a16", "assistantId": "alexa", "kind": "bought", "text": "Bought the weekly groceries from Fernhill Market", "party": "Fernhill Market", "amount": 121.8, "category": "groceries", "when": {"daysAgo": 7, "time": "08:10"}, "within": "month"},
+    {"id": "a17", "assistantId": "alexa", "kind": "bought", "text": "Bought furnace filters from Northgate Hardware", "party": "Northgate Hardware", "amount": 42.6, "category": "household", "when": {"daysAgo": 8, "time": "14:15"}, "within": "month"},
+    {"id": "a18", "assistantId": "claude", "kind": "bought", "text": "Started a Lumen Streaming subscription, $9.99 every month", "party": "Lumen Streaming", "amount": 9.99, "category": "subscriptions", "when": {"daysAgo": 9, "time": "20:05"}, "within": "month", "repeats": "month"},
+    {"id": "a19", "assistantId": "perplexity", "kind": "bought", "text": "Started a Quillbox Pro subscription, $15.00 every month", "party": "Quillbox", "amount": 15.0, "category": "subscriptions", "when": {"daysAgo": 10, "time": "11:00"}, "within": "month", "repeats": "month"},
+    {"id": "a20", "assistantId": "alexa", "kind": "bought", "text": "Bought the weekly groceries from Fernhill Market", "party": "Fernhill Market", "amount": 103.25, "category": "groceries", "when": {"daysAgo": 14, "time": "08:12"}, "within": "month"},
+    {"id": "a21", "assistantId": "siri", "kind": "booked", "text": "Booked a haircut at Maple Street Barbers", "party": "Maple Street Barbers", "amount": 0, "category": null, "when": {"daysAgo": 6, "time": "09:40"}},
+    {"id": "a22", "assistantId": "chatgpt", "kind": "bought", "text": "Bought a gift card from Paperwren Books", "party": "Paperwren Books", "amount": 40.0, "category": "gifts", "when": {"daysAgo": 6, "time": "15:25"}, "within": "month", "status": "undone"},
+    {"id": "a23", "assistantId": "gemini", "kind": "bought", "text": "Buy concert tickets from Stagepass", "party": "Stagepass", "amount": 140.0, "category": "gifts", "when": {"daysAgo": 4, "time": "12:10"}, "status": "declined"}
   ],
   "subscriptions": [
-    { "id": "s1", "assistantId": "claude", "name": "Lumen Streaming", "amount": 9.99, "every": "month", "nextInDays": 21 },
-    { "id": "s2", "assistantId": "perplexity", "name": "Quillbox Pro", "amount": 15.00, "every": "month", "nextInDays": 20 },
-    { "id": "s3", "assistantId": "alexa", "name": "Fernhill Market delivery pass", "amount": 7.99, "every": "month", "nextInDays": 3 },
-    { "id": "s4", "assistantId": "chatgpt", "name": "Bluebird Air travel club", "amount": 59.00, "every": "year", "nextInDays": 112 }
+    {"id": "s1", "assistantId": "claude", "name": "Lumen Streaming", "amount": 9.99, "every": "month", "nextInDays": 21, "actionId": "a18"},
+    {"id": "s2", "assistantId": "perplexity", "name": "Quillbox Pro", "amount": 15.0, "every": "month", "nextInDays": 20, "actionId": "a19"},
+    {"id": "s3", "assistantId": "alexa", "name": "Fernhill Market delivery pass", "amount": 7.99, "every": "month", "nextInDays": 3},
+    {"id": "s4", "assistantId": "chatgpt", "name": "Bluebird Air travel club", "amount": 59.0, "every": "year", "nextInDays": 112}
+  ],
+  "alerts": [
+    {"id": "n1", "kind": "ask", "text": "Claude needs your OK: Buy a standing desk mat from Northgate Hardware", "when": {"daysAgo": 0, "time": "09:12"}},
+    {"id": "n2", "kind": "ask", "text": "Gemini needs your OK: Book a table for 4 at Saltbox Kitchen", "when": {"daysAgo": 0, "time": "08:40"}},
+    {"id": "n3", "kind": "flag", "text": "Unusual activity from Grok: Bought at 3:12 AM from a store it has never used.", "when": {"daysAgo": 0, "time": "03:12"}},
+    {"id": "n4", "kind": "flag", "text": "Unusual activity from ChatGPT: Much bigger than its usual purchase.", "when": {"daysAgo": 1, "time": "11:44"}, "read": true},
+    {"id": "n5", "kind": "expire", "text": "Grok's card access for one task ends in 2 days.", "when": {"daysAgo": 1, "time": "09:00"}, "read": true}
   ]
 }
