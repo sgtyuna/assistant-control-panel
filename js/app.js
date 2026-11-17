@@ -407,6 +407,12 @@ document.addEventListener('submit', (e) => {
   if (fn) fn(new FormData(form), form.dataset.id, form);
 });
 
+// A tapped name stays marked only while the box still holds that name.
+document.addEventListener('input', (e) => {
+  if (e.target.id !== 'new-assistant-name') return;
+  e.target.form.querySelectorAll('.pick').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.value === e.target.value)));
+});
+
 document.addEventListener('change', (e) => {
   const t = e.target;
   if (t.id === 'load-file') { loadFile(t.files[0]); return; }

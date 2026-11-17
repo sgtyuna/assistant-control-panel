@@ -306,6 +306,10 @@ for (const [label, size] of [['phone', { width: 390, height: 844 }], ['computer'
   await go('assistants');
   await page.click('[data-act="open-add-assistant"]');
   check('names already added are not offered again', await page.locator('.pick[data-value="Wren"]').count() === 0 && await page.locator('.pick').count() > 5);
+  check('name picks are announced as not pressed before any tap', await page.locator('.pick[aria-pressed="false"]').count() === await page.locator('.pick').count());
+  await page.click('.pick[data-value="DeepSeek"]');
+  await page.fill('#new-assistant-name', 'Something else');
+  check('editing the name by hand clears the pressed pick', await page.locator('.pick[aria-pressed="true"]').count() === 0);
   await page.click('.pick[data-value="Mistral Le Chat"]');
   check('tapping a suggested name fills it in', await page.inputValue('#new-assistant-name') === 'Mistral Le Chat');
   await page.click('#sheet .btn-primary');
