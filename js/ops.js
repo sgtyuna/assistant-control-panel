@@ -62,9 +62,13 @@ function fields(d) {
   };
 }
 
+// How long an action can be undone for. An email that went out cannot be
+// taken back, so it never gets an undo window, however it was added.
+export const undoHoursFor = (d) => (d.kind === 'emailed' ? 0 : Number(d.undoHours) || 0);
+
 function recordDone(data, d, now, extra = {}) {
   const action = { id: uid('x'), ...fields(d), at: iso(d.at || now), status: 'done', ...extra };
-  const hours = Number(d.undoHours) || 0;
+  const hours = undoHoursFor(d);
   if (hours > 0) action.undoUntil = iso(new Date(now).getTime() + hours * 3600000);
   data.actions.push(action);
   if (action.repeats) makeSubscription(data, action);
@@ -104,6 +108,9 @@ export function undo(data, actionId, now = new Date()) {
 
 // Something an assistant did or wants to do, added by hand.
 // mode 'rules' lets the rules decide; 'ask' and 'done' place it directly.
+// 'done' is on purpose: it records something that already happened, so the
+// rules (the blocked list included) are not asked. The record should match
+// what took place, and a block cannot reach back and stop it.
 export function submitDraft(data, draft, now = new Date(), mode = 'rules') {
   const assistant = find(data.assistants, draft.assistantId);
   if (!assistant) return { outcome: 'error', why: 'Pick an assistant first.' };
@@ -120,7 +127,7 @@ export function submitDraft(data, draft, now = new Date(), mode = 'rules') {
   } else if (verdict.outcome === 'ask') {
     data.requests.push({
       id: uid('r'), ...fields(draft), at: iso(now), why: verdict.why,
-      ...(Number(draft.undoHours) > 0 ? { undoHours: Number(draft.undoHours) } : {}),
+      ...(undoHoursFor(draft) > 0 ? { undoHours: undoHoursFor(draft) } : {}),
     });
     addAlert(data, `${who} needs your OK: ${draft.text}`, 'ask', now);
   } else {

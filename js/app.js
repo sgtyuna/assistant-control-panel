@@ -404,6 +404,13 @@ document.addEventListener('submit', (e) => {
 document.addEventListener('change', (e) => {
   const t = e.target;
   if (t.id === 'load-file') { loadFile(t.files[0]); return; }
+  if (t.id === 'add-kind') {
+    // An email cannot be taken back, so the undo choice is off for it.
+    const undo = t.form.querySelector('#add-undo');
+    undo.disabled = t.value === 'emailed';
+    if (undo.disabled) undo.value = '0';
+    return;
+  }
   if (t.id === 'add-assistant') {
     // Show only the written rules that belong to the picked assistant.
     t.form.querySelectorAll('[data-for]').forEach((el) => { el.hidden = el.dataset.for !== t.value; if (el.hidden) el.querySelector('input').checked = false; });
@@ -423,8 +430,10 @@ document.addEventListener('change', (e) => {
 async function loadFile(file) {
   if (!file || store.demo) return;
   const text = await file.text();
-  const has = store.my.assistants.length || store.my.actions.length || store.my.requests.length;
-  if (has && !await confirmBox('Load this saved copy?', 'It replaces the information in this browser now. If you want to keep what is here, cancel and save a copy first.', 'Load it', false)) return;
+  const body = store.tooNew
+    ? 'This browser is holding information from a newer version of this app. Loading this file replaces it for good, and this version cannot save a copy of it first. To keep it, cancel and open the newer version.'
+    : 'It replaces the information in this browser now. If you want to keep what is here, cancel and save a copy first.';
+  if (store.hasStored && !await confirmBox('Load this saved copy?', body, 'Load it', false)) return;
   const res = store.loadFileText(text);
   if (res.error) { await confirmBox('That file could not be loaded', res.error, 'OK', false); return; }
   toast('Your saved information is loaded.');

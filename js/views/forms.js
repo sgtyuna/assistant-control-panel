@@ -82,7 +82,7 @@ export function addActionForm(data, presetId, mode) {
     <label class="field"><span>How it comes in</span><select name="mode" id="add-mode">
       <option value="rules" ${mode === 'ask' ? '' : 'selected'}>Let my rules decide</option>
       <option value="ask" ${mode === 'ask' ? 'selected' : ''}>Put it in Needs your OK</option>
-      <option value="done">Put it straight in Activity</option></select></label>`, 'Add');
+      <option value="done">It already happened: put it straight in Activity (rules are skipped)</option></select></label>`, 'Add');
 }
 
 export function categoryForm(cat) {

@@ -15,8 +15,9 @@ Version 1 (the clickable mock-up) is built. Try it, then say what to change.
 
 - [ ] **Name.** "Assistant Control Panel" is a placeholder. Keep it or pick another?
 - [ ] **What "trusted" does.** Because approve-first beats trusted, a trusted store still has to ask when a limit or an "over $25" rule applies. So trusted only means "never treated as someone new". Is that what you want?
-- [ ] **What can be undone.** A by-hand action can be undone only if you pick a time (1, 7 or 30 days) when adding it. Emails cannot be undone. OK?
+- [ ] **What can be undone.** A by-hand action can be undone only if you pick a time (1, 7 or 30 days) when adding it. Emails can never be undone, so the undo choice is switched off for them. OK?
 - [ ] **Budgets do not stop anything.** Going over a category budget is marked on the Money screen, but it does not make an assistant ask. Only spending limits and rules do. OK?
+- [ ] **"It already happened" skips the rules.** In Add by hand, the choice "It already happened: put it straight in Activity" records the action without asking your rules, even for a blocked store, so the record matches what really took place. Keep that, or should a blocked store still be marked blocked?
 - [ ] **Access is shown, not enforced.** "What it can reach" lists email, calendar and cards and shuts off expiring access by itself, but an assistant with no card listed can still be given a purchase by hand. Should missing access block it?
 
 ## What version 1 does

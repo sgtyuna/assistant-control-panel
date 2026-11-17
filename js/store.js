@@ -185,6 +185,12 @@ export const store = {
 
   fileText() { return toFileText(this.my); },
 
+  // Would loading a file replace something kept in this browser? A record
+  // from a newer version counts, even though it cannot be shown here.
+  get hasStored() {
+    return this.tooNew || !!(this.my.assistants.length || this.my.actions.length || this.my.requests.length);
+  },
+
   loadFileText(text) {
     const res = fromFileText(text);
     if (res.error) return res;

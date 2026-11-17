@@ -95,6 +95,20 @@ test('undo keeps the action in the feed and takes its amount back out', () => {
   assert.equal(ops.undo(data, id, NOW), false, 'cannot undo twice');
 });
 
+test('an email cannot be undone, however it is added', () => {
+  for (const mode of ['rules', 'done']) {
+    const { data, a } = setup();
+    ops.submitDraft(data, buy(a, { kind: 'emailed', amount: 0, undoHours: 24 }), NOW, mode);
+    assert.equal(data.actions[0].undoUntil, undefined, mode);
+    assert.equal(undoable(data, NOW).length, 0, mode);
+    assert.equal(ops.undo(data, data.actions[0].id, NOW), false, mode);
+  }
+  const { data, a } = setup();
+  ops.submitDraft(data, buy(a, { kind: 'emailed', amount: 0, undoHours: 24 }), NOW, 'ask');
+  const done = ops.approve(data, data.requests[0].id, NOW);
+  assert.equal(done.undoUntil, undefined, 'after OK');
+});
+
 test('undo is refused after the deadline', () => {
   const { data, a } = setup();
   ops.submitDraft(data, buy(a, { undoHours: 1 }), NOW);

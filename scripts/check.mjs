@@ -103,5 +103,18 @@ store.storageOk = true; emits = 0;
 await store.setDemo(true);
 check('a failed Demo-mode save raises the warning too', store.storageOk === false && emits > 0);
 
+// A record from a newer version is in this browser: loading a file must ask first.
+failWrites = false; store.storageOk = true;
+await store.setDemo(false);
+const newer = JSON.stringify({ schemaVersion: 99, assistants: [{ id: 'a1', name: 'Kept' }] });
+mem.set('acp.myInfo', newer);
+store.my = emptyInfo(); store.tooNew = false;
+await store.init();
+check('a newer stored record counts as something a loaded file would replace', store.tooNew === true && store.hasStored === true);
+store.saveMy();
+check('a newer stored record is left alone until a file is loaded on purpose', mem.get('acp.myInfo') === newer);
+store.eraseMy();
+check('an empty record is nothing to replace', store.hasStored === false);
+
 console.log(`\n${passed} passed, ${failed} failed`);
 process.exit(failed ? 1 : 0);
